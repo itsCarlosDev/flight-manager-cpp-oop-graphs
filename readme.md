@@ -1,93 +1,279 @@
-# GESTOR DE VUELOS
-## Gestor OOP + Grafos
+# Gestor de Vuelos en C++ · POO y Grafos
 
-Se creará una aplicación usando CLI, esta gestionará diferentes vuelos que serán programados. El código funcionará usando OOP de esta manera poder tener manejo con los diferentes objetos. Tambien se utilizaran grafos, herramienta que se utiliza en las practicas de la UAB.
+<p align="center">
+  <img src="https://img.shields.io/badge/C++-OOP-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ OOP" />
+  <img src="https://img.shields.io/badge/CLI-Application-111827?style=for-the-badge&logo=gnubash&logoColor=white" alt="CLI Application" />
+  <img src="https://img.shields.io/badge/Makefile-Build-374151?style=for-the-badge" alt="Makefile" />
+  <img src="https://img.shields.io/badge/Academic%20Project-UAB-38BDF8?style=for-the-badge" alt="Academic Project UAB" />
+</p>
 
-* Crear diferentes gestores para maneajar arrays reservados
-* Crear un gestor de vuelos con un template de vector
-* Crear una clase para utilizar grafos
+Aplicación de consola desarrollada en **C++** para gestionar vuelos, pilotos, pasajeros y estructuras relacionadas, aplicando conceptos de **programación orientada a objetos**, gestores, arrays reservados, ficheros, templates y grafos.
 
-# Mètodo de Instalación:
+El proyecto fue desarrollado como práctica universitaria y como refuerzo personal antes de empezar segundo curso de Ingeniería Informática, con el objetivo de mejorar la base en C++, diseño de clases, organización de código y gestión manual de estructuras.
 
-1 -> Para Windows
-Para poder abrir este archivo es necesario tener instalado MSYS2 -> https://code.visualstudio.com/docs/cpp/config-mingw
-Video: https://youtu.be/oC69vlWofJQ
+---
 
-2 -> Para MACOS
-make distclean  
+## Objetivos del proyecto
+
+* Practicar **programación orientada a objetos** en C++.
+* Crear diferentes gestores para manejar colecciones de objetos.
+* Trabajar con **arrays reservados** y control manual de memoria.
+* Implementar un gestor de vuelos usando estructuras propias.
+* Practicar el uso de **templates** para reutilizar lógica de ordenación.
+* Introducir una clase para trabajar con **grafos**.
+* Mejorar la organización del proyecto mediante **Makefile**.
+* Utilizar ficheros con `<fstream>` para cargar datos.
+
+---
+
+## Funcionalidades principales
+
+* Crear vuelos.
+* Mostrar vuelos registrados.
+* Modificar vuelos.
+* Eliminar vuelos.
+* Ordenar vuelos por diferentes criterios.
+* Gestionar pilotos y pasajeros.
+* Cargar información de pilotos desde archivo `.txt`.
+* Estructurar el proyecto con clases y gestores.
+* Compilar el proyecto en Windows y macOS mediante Makefile.
+
+---
+
+## Conceptos trabajados
+
+| Área                             | Conceptos aplicados                                               |
+| -------------------------------- | ----------------------------------------------------------------- |
+| Programación orientada a objetos | Clases, constructores, setters, getters, composición              |
+| Memoria y estructuras            | Arrays reservados, inicialización, eliminación y desplazamiento   |
+| C++                              | Templates, punteros a funciones miembro, ficheros con `<fstream>` |
+| Organización                     | Separación en `.h` y `.cpp`, Makefile, estructura de carpetas     |
+| Algoritmos y datos               | Ordenación, gestores, primeros pasos con grafos                   |
+| CLI                              | Menús en consola e interacción con el usuario                     |
+
+---
+
+## Diseño del proyecto
+
+El proyecto se organiza alrededor de diferentes clases y gestores.
+
+La idea principal es separar la responsabilidad de los objetos individuales de la gestión de colecciones. Por ejemplo, un vuelo representa una entidad concreta, mientras que `CGestorVuelos` se encarga de gestionar el conjunto de vuelos.
+
+También se utiliza composición en algunas clases. Por ejemplo, `CPiloto` y `CPasajero` contienen internamente un objeto `CPersona`, en lugar de heredar directamente de él.
+
+```cpp
+CPersona piloto;
+```
+
+Esta decisión permite practicar composición y separar mejor las responsabilidades, aunque en otros diseños también podría estudiarse el uso de herencia y polimorfismo.
+
+---
+
+## Estructura esperada del proyecto
+
+```txt
+.
+├── src/                  # Archivos .cpp principales
+├── include/              # Archivos .h / headers
+├── data/                 # Archivos de datos, como pilotos.txt
+├── Makefile              # Compilación principal
+├── Makefile_MacOS        # Compilación para macOS, si aplica
+└── README.md
+```
+
+La estructura puede variar según la versión actual del repositorio, pero el objetivo es mantener el código separado, legible y fácil de compilar.
+
+---
+
+## Instalación y compilación
+
+### Windows
+
+Para compilar el proyecto en Windows es recomendable tener instalado **MSYS2** y configurar el compilador de C++ en Visual Studio Code.
+
+Guía oficial:
+
+```txt
+https://code.visualstudio.com/docs/cpp/config-mingw
+```
+
+Después de instalar MSYS2 y configurar el entorno, compila el proyecto usando el Makefile correspondiente.
+
+```bash
+make
+```
+
+Si el proyecto incluye un Makefile específico para Windows, utiliza ese archivo según la configuración del repositorio.
+
+---
+
+### macOS
+
+Desde la raíz del proyecto:
+
+```bash
+make distclean
 find . -name "*.o" -delete
 find . -name "*.d" -delete
-make -f Makefile_MacOS 
+make -f Makefile_MacOS
+```
 
-3 -> Clonar el proyecto
+Si ya existe un Makefile unificado para Windows/macOS, se puede usar:
 
-# FAQ:
-- ¿Porqué se ha desarrollado este proyecto? 
-Trabajo desarrollado para practica universitaria.
+```bash
+make
+```
 
-# Posibles mejoras:
-    - Creacion de la clase CCadena por mi (Ahora esta en uso una version de la universidad UAB)
-    - Verificacion antes de pedir los datos como puede ser de Pilotos (comprobacion anterior para ver si caben en el array reservado)
-    - Crear las excepciones de datos si a un int se le coloca una letra...
-    - DNI con letra al final
-    - Al eliminar un piloto el vuelo se cancela
+---
 
-# Cosas muy importantes
+## Ejecución
 
-    - Los array reservados siempre hay que inicializarlos, sino el delete da segmentation fault.
-    - He creado en CPiloto y CPasajero CPersona en la parte privada, haciendo que no haya herencia y sea composicion
-    esto se puede hacer porque tengo 2 gestores tanto para pilotos como para pasajeros, sino se deberia de usar herencia
-    - - CPersona piloto; // Composicion, de esta manera CPiloto no es un CPersona ** No hay polimorfismo **
+Una vez compilado el proyecto, ejecuta el binario generado desde la terminal.
 
-# Actualizaciónes:
+Ejemplo:
 
-**v0.1 -> Primera subida, cosas a tener en cuenta**
-    - Constructor y constructor por defecto, estos tienen la diferencia de cuando el constructor por defecto es llamado, aplica valores por
-    defecto de 0.
+```bash
+./main
+```
 
-**v0.2 -> Segunda subida, cosas a tener en cuenta**
-    - Creacion de una funcion con AI, sirve para esperar unos segundos antes de decirle al usuario que se han aplicado los cambios
-    - Se ha añadido plugin TODO a VSC (Visual Studio Code), de esta manera poder destacar aquellas tareas que faltan.
-    - Se ha añadido CPP y Header de CCadena de los profesores de la UAB, de esta manera poder conseguir utilizar una cadena de caracteres.
-    - (UI en consola) Creacion de un menu en el main.exe para poder llamar a las funciones, 
-    
-**v0.3 -> Tercera subida, cosas a tener en cuenta**
-    - Creacion de la clase CGestorVuelos, esto es para controlar el array desde el gestor de vuelos y no desde los vuelos como tal
-    - Se ha eliminado la funcion creada por inteligencia artificial para realizar una espera en el login de crearVuelo ahora se utiliza en el main.
-    - Implementación de funciones: creacionVuelos, mostrarVuelos, eliminarVuelos, modificarVuelos
+En Windows puede generarse un ejecutable `.exe`:
 
-**v0.4 -> Cuarta subida, cosas a tener en cuenta**
-    - Mejora del README
-    - Arreglo de los setters de CVuelo
-    - Descubiertos varios bugs con el array a la hora de ordenarPorID, ordenarporPrecio, ordenarPorDuracion arreglado
-    - Mas bugs a la hora de eliminar posiciones del array arreglado.
-    - Funciones de organizar con array estatico.
+```bash
+main.exe
+```
 
-**v0.5 -> Cuarta subida, cosas a tener en cuenta**
-    - Se ha cambiado las 3 funciones parecidas de organizar por un template, llamando a "gestor.ordenar(&CVuelo::getId);" se 
-    recoge la direccion de la funcion miembro de CVuelo que en este caso es getId() y desde la clase CGestorVuelos gracias al
-    puntero "m_vuelo[i].*getter" que apunta a la funcion miebro.
-    - Futura creación de arrays estaticos para pasajeros que se asignaran a aviones y estos aviones se asignaran a Vuelos
-    - Futura adaptacion para que los aviones tengan un array dinamico que este se adapte a la cantidad maxima de aviones que caben en
-    el aeropuerto
-    - Al declarar un avion se indicaran el numero maximo de pasajeros que caben dentro del avion (esto servira para practicar arrays reservados (se les llama array dinamicos en la UAB))
-    - La cantidad de vuelos seran un array dinamico, de esta manera se conseguira poder muchos vuelos y el array se adaptara gracias a 
-    - El numero de gente en plantilla se indica antes de empezar en el menu, se supone ya de por si que la persona que tiene acceso a este menu es un administrador.
+El programa mostrará un menú en consola desde el que se podrán ejecutar las diferentes operaciones disponibles.
 
-**v0.5.1 -> Quinta subida, cosas a tener en cuenta**
-    - Mejoras varias de errores y warnings por consola
+---
 
-**v0.6 -> Sexta subida, cosas a tener en cuenta**
-    - Mejora de makefile y la distribución de los archivos
-    - Uso de archivos para CPiloto con <fstream>
-    - Deshabiltar el uso del array reservado dinamico (próximamente reactivación)
-    - Cambios por AI del makefile (necesarios para mejorar la distribucion de los archivos)
-<<<<<<< HEAD
-    - Ahora los pilotos se recogen de un txt
-  
-**V0.6.1 - V0.6.2 -> Septima subida, cosas a tener en cuenta**
-    - Modificacion del main con AI para borrar la consola de windows y MacOS
-    - Modificacion del Makefile para compartir el makefile entre Windows y MacOS
-=======
-    - Ahora los pilotos se recogen de un txt
->>>>>>> 7fe59fd07166bef4c32246d88d85878eef614e6c
+## Notas importantes
+
+* Los arrays reservados deben inicializarse correctamente para evitar errores como `segmentation fault`.
+* Si se usa memoria dinámica, hay que controlar bien la creación, eliminación y reasignación de elementos.
+* Algunos errores iniciales aparecieron al ordenar y eliminar elementos de arrays, por lo que se corrigieron desplazamientos y accesos inválidos.
+* La clase `CCadena` utilizada inicialmente procede de material universitario de la UAB.
+* En futuras versiones sería interesante reemplazarla por una implementación propia o por `std::string`, según el objetivo académico del proyecto.
+* Actualmente se trabaja con composición en lugar de herencia en ciertas clases, como `CPiloto` y `CPasajero`.
+
+---
+
+## Posibles mejoras
+
+* Crear una implementación propia de `CCadena`.
+* Mejorar la validación de entradas del usuario.
+* Controlar errores cuando se introduce texto en campos numéricos.
+* Validar correctamente DNI y otros datos personales.
+* Comprobar capacidad antes de añadir pilotos, pasajeros o vuelos.
+* Implementar excepciones para entradas inválidas.
+* Cancelar vuelos automáticamente si se elimina un piloto asignado.
+* Mejorar la persistencia de datos mediante archivos.
+* Reactivar y mejorar el uso de arrays reservados dinámicos.
+* Añadir tests básicos para comprobar las operaciones principales.
+* Documentar mejor la clase de grafos y sus posibles usos dentro del sistema.
+
+---
+
+## Evolución del proyecto
+
+### v0.1
+
+* Primera subida del proyecto.
+* Implementación inicial de constructores y constructores por defecto.
+* Definición de valores por defecto para algunos objetos.
+
+### v0.2
+
+* Creación inicial de la interfaz por consola.
+* Añadido menú principal para llamar a las funciones.
+* Integración de la clase `CCadena` proporcionada en el entorno universitario.
+* Organización inicial de tareas pendientes mediante TODOs en Visual Studio Code.
+
+### v0.3
+
+* Creación de la clase `CGestorVuelos`.
+* Separación de la lógica de gestión respecto a la clase `CVuelo`.
+* Implementación de funciones para crear, mostrar, eliminar y modificar vuelos.
+
+### v0.4
+
+* Mejora del README.
+* Corrección de setters de `CVuelo`.
+* Corrección de errores al ordenar por ID, precio y duración.
+* Corrección de errores al eliminar elementos del array.
+* Mejora de funciones de organización con arrays estáticos.
+
+### v0.5
+
+* Reutilización de lógica de ordenación mediante templates.
+* Uso de punteros a funciones miembro para ordenar por diferentes criterios.
+
+Ejemplo conceptual:
+
+```cpp
+gestor.ordenar(&CVuelo::getId);
+```
+
+* Planificación de futuras mejoras para gestionar pasajeros, aviones y vuelos con arrays dinámicos.
+
+### v0.5.1
+
+* Corrección de errores menores.
+* Reducción de warnings por consola.
+
+### v0.6
+
+* Mejora del Makefile.
+* Reorganización de archivos.
+* Uso de `<fstream>` para cargar pilotos desde archivo.
+* Los pilotos pasan a recogerse desde un `.txt`.
+* Deshabilitación temporal del array reservado dinámico para futuras mejoras.
+
+### v0.6.1 - v0.6.2
+
+* Mejora del `main`.
+* Limpieza de consola adaptada a Windows y macOS.
+* Modificación del Makefile para facilitar la compilación en ambos sistemas.
+
+---
+
+## FAQ
+
+### ¿Por qué se ha desarrollado este proyecto?
+
+Este proyecto se desarrolló como práctica universitaria y como ejercicio personal para reforzar conceptos fundamentales de C++ antes de avanzar a proyectos más complejos.
+
+### ¿Qué lo diferencia de un CRUD simple?
+
+Aunque parte de operaciones básicas como crear, mostrar, modificar y eliminar vuelos, el objetivo principal es practicar conceptos de bajo nivel y diseño en C++: gestores, arrays reservados, composición, ficheros, templates y primeros pasos con grafos.
+
+### ¿Es un proyecto finalizado?
+
+No completamente. Es un proyecto académico en evolución, útil para aprender y practicar. Algunas partes están pensadas como base para futuras mejoras.
+
+---
+
+## Aprendizajes principales
+
+Este proyecto me ayudó a entender mejor:
+
+* Cómo organizar código C++ en clases y gestores.
+* La importancia de inicializar correctamente arrays y memoria.
+* Cómo separar responsabilidades entre entidades y gestores.
+* Cómo usar ficheros para cargar datos.
+* Cómo mejorar progresivamente un proyecto con versiones.
+* Cómo documentar problemas, decisiones y mejoras futuras.
+
+---
+
+## Estado del proyecto
+
+Proyecto académico en evolución.
+Actualmente sirve como base de aprendizaje para reforzar C++, POO, estructuras de datos y organización de proyectos con Makefile.
+
+---
+
+## Autor
+
+Desarrollado por **Carlos Morales Artés**.
+
+Estudiante de Ingeniería Informática en la Universitat Autònoma de Barcelona.
